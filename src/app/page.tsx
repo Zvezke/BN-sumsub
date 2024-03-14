@@ -1,7 +1,9 @@
 export default function Home() {
   return (
-    <main className="flex items-center justify-center min-h-screen bg-neutral-900">
-      <h1 className="text-2xl text-neutral-200 font-roboto font-bold">Code</h1>
+    <main className="flex min-h-screen items-center justify-center bg-neutral-900">
+      <h1 className="font-roboto text-2xl font-bold text-neutral-200">
+        Development
+      </h1>
     </main>
   );
 }
