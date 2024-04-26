@@ -41,7 +41,7 @@ export default function Home() {
     : formattedTotalCost;
 
   return (
-    <main className="flex min-h-screen flex-col justify-center bg-neutral-900 p-4">
+    <main className="flex min-h-screen flex-col justify-center bg-[url('/images/bg_dummy.png')] p-4">
       <div className="ml-[5%] gap-8 text-neutral-200 lg:ml-[27.5vw] lg:flex lg:items-end">
         <div>
           <label htmlFor="acquisitionValue" className="mb-2 block">
