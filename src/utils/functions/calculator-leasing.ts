@@ -35,15 +35,15 @@ export function calculateTotalCost(av: number, months: number): number | null {
   return av * (factorRate / 100);
 }
 
-// Example usage
-try {
-  const acquisitionValue = 191481;
-  const contractMonths = 48;
-  const totalCost = calculateTotalCost(acquisitionValue, contractMonths);
-  console.log(
-    `Total Cost for an acquisition value of ${acquisitionValue} over ${contractMonths} months is: ${totalCost?.toFixed(2)}`,
-  );
-} catch (error) {
-  const errorMessage = (error as Error).message;
-  console.error(errorMessage);
-}
+// // Example usage
+// try {
+//   const acquisitionValue = 191481;
+//   const contractMonths = 48;
+//   const totalCost = calculateTotalCost(acquisitionValue, contractMonths);
+//   console.log(
+//     `Total Cost for an acquisition value of ${acquisitionValue} over ${contractMonths} months is: ${totalCost?.toFixed(2)}`,
+//   );
+// } catch (error) {
+//   const errorMessage = (error as Error).message;
+//   console.error(errorMessage);
+// }
