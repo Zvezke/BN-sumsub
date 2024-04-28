@@ -13,7 +13,7 @@ interface LoginData {
   password: string;
 }
 
-export default function Login() {
+export default function SignUp() {
   const router = useRouter();
   const schema: ZodType<LoginData> = z.object({
     email: z.string().email(),
@@ -26,19 +26,17 @@ export default function Login() {
 
   const submitData = async (data: LoginData) => {
     const supabase = createClient();
-    let { data: signInData, error: signInError } =
-      await supabase.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
-      });
-
-    if (signInError) {
-      console.log("error", signInError);
+    let { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+    });
+    if (signUpError) {
+      console.log("error", signUpError);
       return;
     }
 
-    if (signInData) {
-      router.push("/");
+    if (signUpData) {
+      router.push("/login");
     }
   };
 
@@ -66,13 +64,13 @@ export default function Login() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             src="/images/logo-sand.svg"
-            alt="logo for banking north"
+            alt="Your Company"
             width={50}
             height={50}
             className="mx-auto"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-            Sign in to the test environment
+            Sign up to the test environment
           </h2>
         </div>
 
@@ -132,17 +130,17 @@ export default function Login() {
                 type="submit"
                 className="bg-sand text-himmel hover:bg-sand focus-visible:outline-sand flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
-                Sign in
+                Sign up
               </button>
             </div>
           </form>
           <p className="mt-10 text-center text-sm text-gray-400">
-            No login?{" "}
+            Already have a login?{" "}
             <Link
-              href="/signup"
+              href="/login"
               className="text-sand hover:text-sand font-semibold leading-6"
             >
-              Sign up
+              Sign in
             </Link>
           </p>
           {/* <button
