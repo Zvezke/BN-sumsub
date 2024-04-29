@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Hanken_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const hanken = Hanken_Grotesk({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "BN",
@@ -16,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html className="h-full" lang="en">
-      <body className={`h-full ${inter.className}`}>{children}</body>
+      <body className={`h-full ${hanken.className}`}>{children}</body>
     </html>
   );
 }
