@@ -92,7 +92,7 @@ export default function Login() {
                   autoComplete="email"
                   required
                   {...register("email")}
-                  className="focus:ring-sand block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-sand sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -122,7 +122,7 @@ export default function Login() {
                   autoComplete="current-password"
                   required
                   {...register("password")}
-                  className="focus:ring-sand block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-sand sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -130,7 +130,7 @@ export default function Login() {
             <div>
               <button
                 type="submit"
-                className="bg-sand text-himmel hover:bg-sand focus-visible:outline-sand flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="flex w-full justify-center rounded-md bg-sand px-3 py-1.5 text-sm font-semibold leading-6 text-himmel shadow-sm hover:bg-sand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand"
               >
                 Sign in
               </button>
@@ -140,7 +140,7 @@ export default function Login() {
             No login?{" "}
             <Link
               href="/signup"
-              className="text-sand hover:text-sand font-semibold leading-6"
+              className="font-semibold leading-6 text-sand hover:text-sand"
             >
               Sign up
             </Link>
