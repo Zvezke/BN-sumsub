@@ -3,6 +3,9 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import CalculatorLeasing from "@/components/CalculatorLeasing";
+import RetrieveUserInformation from "@/components/RetrieveUserInformation";
+import UserInfo from "@/components/UserInfo";
+import TestEmail from "@/components/TestEmail";
 
 export default async function Home() {
   const cookieStore = cookies();
@@ -21,6 +24,9 @@ export default async function Home() {
       <div className="ml-[5%] gap-8 text-neutral-200 lg:ml-[27.5vw] lg:flex lg:items-end">
         <CalculatorLeasing />
       </div>
+      <RetrieveUserInformation />
+      <TestEmail />
+      {/* <UserInfo /> */}
     </main>
   );
 }
