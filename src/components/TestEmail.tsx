@@ -1,9 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
 const TestEmail = () => {
-  // const [userInformation, setUserInformation] = useState(null);
   const handleFetchUserInformation = async () => {
     const response = await fetch("/api/test-email/", {
       method: "POST",
@@ -12,9 +9,6 @@ const TestEmail = () => {
       },
     });
     console.log(response);
-    // const data = await response.json();
-    // console.log(data);
-    // setUserInformation(data);
   };
 
   return (
@@ -26,11 +20,6 @@ const TestEmail = () => {
       >
         Test email
       </button>
-      {/* {userInformation && (
-        <div className="mt-4 text-white">
-          <pre>{JSON.stringify(userInformation, null, 2)}</pre>
-        </div>
-      )} */}
     </div>
   );
 };
