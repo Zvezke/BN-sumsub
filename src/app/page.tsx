@@ -2,10 +2,9 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import CalculatorLeasing from "@/components/CalculatorLeasing";
 import RetrieveUserInformation from "@/components/RetrieveUserInformation";
-import UserInfo from "@/components/UserInfo";
 import TestEmail from "@/components/TestEmail";
+import Button from "@/components/Button";
 
 export default async function Home() {
   const cookieStore = cookies();
@@ -20,13 +19,12 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col justify-center bg-[url('/images/bg_dummy.png')] p-4">
-      <div className="ml-[5%] gap-8 text-neutral-200 lg:ml-[27.5vw] lg:flex lg:items-end">
-        <CalculatorLeasing />
+    <>
+      <div className="flex items-center justify-center gap-4">
+        <Button link="/leasing-calculator" text="Leasing Calculator" />
+        <RetrieveUserInformation />
+        <TestEmail />
       </div>
-      <RetrieveUserInformation />
-      <TestEmail />
-      {/* <UserInfo /> */}
-    </main>
+    </>
   );
 }
