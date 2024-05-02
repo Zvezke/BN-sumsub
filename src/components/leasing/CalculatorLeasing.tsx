@@ -3,9 +3,15 @@
 import React, { useState, useEffect } from "react";
 import { calculateTotalCost } from "@/utils/functions/calculator-leasing";
 
-const CalculatorLeasing = () => {
-  const [acquisitionValue, setAcquisitionValue] = useState<number | null>(null);
-  const [contractMonths, setContractMonths] = useState(15);
+interface CalculatorLeasingProps {
+  acquisitionValue: number | null;
+  contractMonths: number;
+}
+
+const CalculatorLeasing = ({
+  acquisitionValue,
+  contractMonths,
+}: CalculatorLeasingProps) => {
   const [totalCost, setTotalCost] = useState<number | null>(null);
 
   useEffect(() => {
@@ -47,38 +53,7 @@ const CalculatorLeasing = () => {
 
   return (
     <>
-      <div className="self-end">
-        <label htmlFor="acquisitionValue" className="mb-2 block">
-          {/* Danish: Anskaffelsessum */}
-          Acquisition value
-        </label>
-        <input
-          type="number"
-          id="acquisitionValue"
-          value={acquisitionValue !== null ? acquisitionValue : ""}
-          onChange={(e) =>
-            setAcquisitionValue(e.target.value ? Number(e.target.value) : null)
-          }
-          className="mb-4 rounded-sm p-2 text-gray-900"
-        />
-        <label htmlFor="contractMonths" className="mb-2 block">
-          {/* Danish: Leasingperiode i måneder */}
-          Lease period in months
-        </label>
-        <select
-          id="contractMonths"
-          value={contractMonths}
-          onChange={(e) => setContractMonths(Number(e.target.value))}
-          className="w-16 rounded-sm p-2 text-gray-900"
-        >
-          <option value="15">15</option>
-          <option value="24">24</option>
-          <option value="36">36</option>
-          <option value="48">48</option>
-          <option value="60">60</option>
-        </select>
-      </div>
-      <div className="text-xl">
+      <div className="row-start-2 text-xl">
         <p>
           {/* Danish: Anskaffelsessum: */}
           Acquisition value, DKK:

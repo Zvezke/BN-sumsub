@@ -1,25 +1,38 @@
-import { NextResponse } from "next/server"; // Import NextResponse
+import { NextRequest, NextResponse } from "next/server"; // Import NextResponse
 import nodemailer from "nodemailer";
 
-export async function POST() {
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    address,
+    postcode,
+    contractMonths,
+    acquisitionValue,
+  } = body;
+
+  const transporter = nodemailer.createTransport({
+    host: "bn.astamedia.dk",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: process.env.SENDER_EMAIL, // your SMTP username
+      pass: process.env.SENDER_PASSWORD, // your SMTP password
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.SENDER_EMAIL,
+    to: process.env.RECIPIENT_EMAIL,
+    subject: `New leasing request from ${firstName} ${lastName}`,
+    text: `Details:\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${address}, ${postcode}\nContract Months: ${contractMonths}\nAcquisition Value (DKK): ${acquisitionValue}`,
+  };
+
   try {
-    const transporter = nodemailer.createTransport({
-      host: "bn.astamedia.dk",
-      port: 465,
-      secure: true, // true for 465, false for other ports
-      auth: {
-        user: process.env.SENDER_EMAIL, // your SMTP username
-        pass: process.env.SENDER_PASSWORD, // your SMTP password
-      },
-    });
-
-    const mailOptions = {
-      from: process.env.SENDER_EMAIL,
-      to: process.env.RECIPIENT_EMAIL,
-      subject: "Test Email",
-      text: "This is a test email",
-    };
-
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent: %s", info.messageId);
     // Return a success response
@@ -34,14 +47,11 @@ export async function POST() {
       },
     );
   } catch (error) {
-    // Log the error for debugging purposes
     console.error("Error sending email:", error);
 
-    // Check if the error is an instance of Error
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
 
-    // Return an error response with the error message
     return new NextResponse(
       JSON.stringify({
         error: "Failed to send email",
