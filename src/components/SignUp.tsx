@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
+import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
@@ -25,30 +26,24 @@ export default function SignUp() {
   });
 
   const submitData = async (data: LoginData) => {
-    const supabase = createClient();
-    let { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-      email: data.email,
-      password: data.password,
-    });
-    if (signUpError) {
-      console.log("error", signUpError);
-      return;
-    }
-
-    if (signUpData) {
+    try {
+      const response = await axios.post("/api/sign-up/", data);
       router.push("/thanks-for-signing-up");
+      console.log(response);
+    } catch (error) {
+      console.error("Failed to send form data:", error);
     }
   };
 
-  const handleLogout = async () => {
-    const supabase = createClient();
-    let { error } = await supabase.auth.signOut();
+  // const handleLogout = async () => {
+  //   const supabase = createClient();
+  //   let { error } = await supabase.auth.signOut();
 
-    if (error) {
-      console.log("error", error);
-      return;
-    }
-  };
+  //   if (error) {
+  //     console.log("error", error);
+  //     return;
+  //   }
+  // };
 
   return (
     <>

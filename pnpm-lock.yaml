@@ -8,6 +8,9 @@ dependencies:
   '@hookform/resolvers':
     specifier: ^3.3.4
     version: 3.3.4(react-hook-form@7.51.3)
+  '@sumsub/websdk-react':
+    specifier: ^2.2.1
+    version: 2.2.1(react-dom@18.3.1)(react@18.3.1)
   '@supabase/ssr':
     specifier: ^0.3.0
     version: 0.3.0(@supabase/supabase-js@2.42.7)
@@ -312,6 +315,16 @@ packages:
   /@rushstack/eslint-patch@1.10.2:
     resolution: {integrity: sha512-hw437iINopmQuxWPSUEvqE56NCPsiU8N4AYtfHmJFckclktzK9YQJieD3XkDCDH4OjL+C7zgPUh73R/nrcHrqw==}
     dev: true
+
+  /@sumsub/websdk-react@2.2.1(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-So09kyYDGZPLYE8JdPxKRFjlhpUwmJTg1eCP49lGCJvoTwocFEo+cUxqBAQf7XiLXcE8wfcEOrWBkDz4vAuqsA==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
 
   /@supabase/auth-js@2.64.1:
     resolution: {integrity: sha512-tA2PXLoWEzhD0N1Vysree+HftfeWBbFV0E+taND5rj/pZTjkwKq/9GlrnXkbs5pnw+tsnABDRo2WLZmymihGdA==}
