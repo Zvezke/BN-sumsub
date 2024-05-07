@@ -28,7 +28,7 @@ export default function Login() {
 
   const submitData = async (data: LoginData) => {
     const { error } = await signIn(data.email, data.password);
-    if (!error) router.push("/");
+    if (!error) router.push("/intra");
     else console.log("Login error", error.message);
   };
 

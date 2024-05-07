@@ -38,12 +38,11 @@ export default async function Home() {
 
   return (
     <>
-      <div className="flex items-center justify-center gap-4">
-        <Button link="/leasing-calculator" text="Leasing Calculator" />
+      <div className="flex min-h-screen items-center justify-center gap-4">
         <RetrieveUserInformation />
         <TestEmail />
         <SignOut />
-        <Sumsub />
+        {/* <Sumsub /> */}
       </div>
     </>
   );
