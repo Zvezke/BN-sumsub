@@ -12,6 +12,9 @@ import { PlusIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import SignOut from "./SignOut";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+// let pathname = usePathname();
 
 const user = {
   name: "Finnur Thomsen",
@@ -20,7 +23,7 @@ const user = {
     "https://hykwghxjizmnxfndwozk.supabase.co/storage/v1/object/public/images/Cropped_Finnur.jpg?t=2024-05-07T11%3A48%3A02.002Z",
 };
 const navigation = [
-  { name: "Leasing Calculator", href: "/leasing-calculator", current: true },
+  { name: "Leasing Calculator", href: "/leasing-calculator", current: false },
   // { name: "Team", href: "#", current: false },
   // { name: "Projects", href: "#", current: false },
   // { name: "Calendar", href: "#", current: false },
@@ -36,6 +39,7 @@ function classNames(...classes: (string | boolean)[]) {
 }
 
 export default function Navbar() {
+  const pathname = usePathname();
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }: { open: boolean }) => (
@@ -65,21 +69,24 @@ export default function Navbar() {
                   />
                 </div>
                 <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "rounded-md px-3 py-2 text-sm font-medium",
-                      )}
-                      aria-current={item.current ? "page" : undefined}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
+                  {navigation.map((item) => {
+                    const isCurrent = item.href === pathname;
+                    return (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          isCurrent
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "rounded-md px-3 py-2 text-sm font-medium",
+                        )}
+                        aria-current={isCurrent ? "page" : undefined}
+                      >
+                        {item.name}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
               <div className="flex items-center">
@@ -92,22 +99,25 @@ export default function Navbar() {
 
           <Disclosure.Panel className="md:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium",
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+              {navigation.map((item) => {
+                const isCurrent = item.href === pathname;
+                return (
+                  <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    href={item.href}
+                    className={classNames(
+                      isCurrent
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium",
+                    )}
+                    aria-current={isCurrent ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                );
+              })}
             </div>
             <div className="border-t border-gray-700 pb-3 pt-4">
               <div className="flex items-center px-5 sm:px-6">

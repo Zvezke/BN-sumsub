@@ -41,7 +41,7 @@ export default async function Home() {
       <div className="flex min-h-screen items-center justify-center gap-4">
         <RetrieveUserInformation />
         <TestEmail />
-        <SignOut />
+        {/* <SignOut /> */}
         {/* <Sumsub /> */}
       </div>
     </>
