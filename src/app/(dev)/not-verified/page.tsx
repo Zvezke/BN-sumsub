@@ -5,10 +5,10 @@ const Page = () => {
     <div className="flex min-h-screen flex-col items-center justify-center">
       <div>
         <h2 className="mb-8 text-8xl font-bold text-white">
-          Thanks for signing up
+          You will be granted access soon
         </h2>
         <p className="text-2xl text-gray-300">
-          ... now go and check your inbox. :)
+          ... sorry for the wait. We will get back to you as soon as possible.
         </p>
       </div>
     </div>
