@@ -24,7 +24,7 @@ const user = {
 };
 const navigation = [
   { name: "Leasing Calculator", href: "/leasing-calculator", current: false },
-  // { name: "Team", href: "#", current: false },
+  { name: "Leasing Form", href: "/leasing-form", current: false },
   // { name: "Projects", href: "#", current: false },
   // { name: "Calendar", href: "#", current: false },
 ];
