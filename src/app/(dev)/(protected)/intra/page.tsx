@@ -7,7 +7,7 @@ import RetrieveUserInformation from "@/components/RetrieveUserInformation";
 import TestEmail from "@/components/TestEmail";
 import Button from "@/components/Button";
 import SignOut from "@/components/SignOut";
-import Sumsub from "@/components/Sumsub";
+import Sumsub from "@/components/Sumsub/Sumsub";
 
 export default async function Home() {
   const cookieStore = cookies();
@@ -41,6 +41,7 @@ export default async function Home() {
       <div className="flex min-h-screen items-center justify-center gap-4">
         <RetrieveUserInformation />
         <TestEmail />
+        <Sumsub />
         {/* <SignOut /> */}
         {/* <Sumsub /> */}
       </div>

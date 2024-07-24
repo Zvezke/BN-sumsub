@@ -37,3 +37,6 @@ api.http
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Bash
+sumsub.sh
