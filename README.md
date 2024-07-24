@@ -8,7 +8,7 @@ This project is a minified application to debug fetching the access token from S
 
 ## Getting Started
 
-First, install the dependencies. You can use `npm` or `yarn` but I use `pnpm`.
+First, install the dependencies. You can use `npm` or `yarn`, but I use `pnpm`.
 
 NPM:
 ```
@@ -37,6 +37,7 @@ bash
 pnpm run dev
 ```
 
-You will also be needing variables for `.env.local`. Please contact me for the variables.
+You will also be needing variables for `.env.local`.
+Please contact me for the variables.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to run it.
