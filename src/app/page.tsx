@@ -1,7 +1,11 @@
-import { redirect } from "next/navigation";
+import Sumsub from "@/components/Sumsub/Sumsub";
 
-const Page = () => {
-  redirect("/login");
-};
-
-export default Page;
+export default async function Home() {
+  return (
+    <>
+      <div className="flex min-h-screen items-center justify-center gap-4">
+        <Sumsub />
+      </div>
+    </>
+  );
+}

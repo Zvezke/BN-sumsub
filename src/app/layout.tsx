@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className="h-full" lang="en">
+    <html className="h-full bg-gray-800" lang="en">
       <body className={`h-full ${hanken.className}`}>{children}</body>
     </html>
   );
