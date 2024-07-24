@@ -15,8 +15,6 @@ export async function POST(req: NextRequest) {
   const method = "POST";
   const url = `${sumsub_root_url}/resources/accessTokens?userId=${userId}&levelName=${levelName}`;
   console.log("URL Path:", url);
-  // const urlPath =
-  //   "https://api.sumsub.com/resources/accessTokens?userId=random-postman-user-ft6ca0j0r&levelName=basic-kyc-level";
 
   const stamp = Math.floor(Date.now() / 1000).toString();
   const valueToSign = `${stamp}${method}${url}`;
@@ -27,7 +25,7 @@ export async function POST(req: NextRequest) {
 
   const headers = {
     "X-App-Token": SUMSUB_APP_TOKEN,
-    "X-App-Access-Ts": stamp.toString(),
+    "X-App-Access-Ts": stamp,
     "X-App-Access-Sig": signature,
     "Content-Type": "application/json",
   };
