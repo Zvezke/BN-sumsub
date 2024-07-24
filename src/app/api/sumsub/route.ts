@@ -3,10 +3,8 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 
 export async function POST(req: NextRequest) {
-  const NEXT_PUBLIC_SUMSUB_APP_TOKEN =
-    process.env.NEXT_PUBLIC_SUMSUB_APP_TOKEN!;
-  const NEXT_PUBLIC_SUMSUB_SECRET_KEY =
-    process.env.NEXT_PUBLIC_SUMSUB_SECRET_KEY!;
+  const SUMSUB_APP_TOKEN = process.env.SUMSUB_APP_TOKEN!;
+  const SUMSUB_SECRET_KEY = process.env.SUMSUB_SECRET_KEY!;
   const {
     userId = "someUniqueUserIdPostman",
     levelName = "basic-kyc-level",
@@ -24,11 +22,11 @@ export async function POST(req: NextRequest) {
   const valueToSign = `${stamp}${method}${url}`;
   console.log("Value to Sign:", valueToSign);
   const signature = CryptoJS.enc.Hex.stringify(
-    CryptoJS.HmacSHA256(valueToSign, NEXT_PUBLIC_SUMSUB_SECRET_KEY),
+    CryptoJS.HmacSHA256(valueToSign, SUMSUB_SECRET_KEY),
   );
 
   const headers = {
-    "X-App-Token": NEXT_PUBLIC_SUMSUB_APP_TOKEN,
+    "X-App-Token": SUMSUB_APP_TOKEN,
     "X-App-Access-Ts": stamp.toString(),
     "X-App-Access-Sig": signature,
     "Content-Type": "application/json",
@@ -63,7 +61,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// Example of 'Stamp' from console log (within a few seconds of each other):
+// Example of 'Stamp' from console log from respectively NextJS and Postman (within a few seconds of each other):
 // 1721585241
 // 1721585239
 
