@@ -1,46 +1,91 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import CryptoJS from "crypto-js";
+import crypto from "crypto";
 
 export async function POST(req: NextRequest) {
-  const SUMSUB_APP_TOKEN = process.env.SUMSUB_APP_TOKEN!;
-  const SUMSUB_SECRET_KEY = process.env.SUMSUB_SECRET_KEY!;
-  const {
-    userId = "someUniqueUserIdPostman",
-    levelName = "basic-kyc-level",
-    ttlInSecs = 600,
-  } = await req.json();
+  // Load environment variables
+  const SUMSUB_APP_TOKEN = process.env.SUMSUB_APP_TOKEN;
+  const SUMSUB_SECRET_KEY = process.env.SUMSUB_SECRET_KEY;
+  const SUMSUB_BASE_URL = process.env.SUMSUB_BASE_URL;
 
-  const sumsub_root_url = "https://api.sumsub.com";
-  const method = "POST";
-  const url = `${sumsub_root_url}/resources/accessTokens?userId=${userId}&levelName=${levelName}`;
-  console.log("URL Path:", url);
+  if (!SUMSUB_APP_TOKEN || !SUMSUB_SECRET_KEY || !SUMSUB_BASE_URL) {
+    return NextResponse.json(
+      { error: "Missing environment variables" },
+      { status: 500 },
+    );
+  }
 
-  const stamp = Math.floor(Date.now() / 1000).toString();
-  const valueToSign = `${stamp}${method}${url}`;
-  console.log("Value to Sign:", valueToSign);
-  const signature = CryptoJS.enc.Hex.stringify(
-    CryptoJS.HmacSHA256(valueToSign, SUMSUB_SECRET_KEY),
-  );
+  // Parse the request body
+  const { userId, levelName, ttlInSecs } = await req.json();
 
-  const headers = {
-    "X-App-Token": SUMSUB_APP_TOKEN,
-    "X-App-Access-Ts": stamp,
-    "X-App-Access-Sig": signature,
-    "Content-Type": "application/json",
+  const config: any = {
+    baseURL: SUMSUB_BASE_URL,
+    method: "POST",
+    url: `/resources/accessTokens?userId=${encodeURIComponent(userId)}&ttlInSecs=${ttlInSecs || 600}&levelName=${encodeURIComponent(levelName || "basic-kyc-level")}`,
+    headers: {
+      Accept: "application/json",
+      "X-App-Token": SUMSUB_APP_TOKEN,
+    },
+    data: null,
   };
 
-  // Log headers, URL, and signature for debugging
-  console.log("Generated Headers:", headers);
-  console.log("Generated Signature:", signature);
-  console.log("Value to Sign:", valueToSign);
-  console.log("URL Path:", url);
-  console.log("Timestamp:", stamp);
+  function createSignature(config: any) {
+    const ts = Math.floor(Date.now() / 1000);
+    const signature = crypto.createHmac(
+      "sha256",
+      process.env.SUMSUB_SECRET_KEY || "",
+    );
+    signature.update(ts + config.method.toUpperCase() + config.url);
 
-  console.log("Axios url:", `${url}`);
+    if (config.data) {
+      signature.update(config.data.getBuffer());
+    } else if (config.data) {
+      signature.update(config.data);
+    }
+
+    config.headers["X-App-Access-Ts"] = ts;
+    config.headers["X-App-Access-Sig"] = signature.digest("hex");
+
+    return config;
+  }
+
+  axios.interceptors.request.use(createSignature, function (error) {
+    return Promise.reject(error);
+  });
+
+  function createAccessToken(
+    externalUserId = "random-postman-user-5kixf6sqi",
+    levelName = "basic-kyc-level",
+    ttlInSecs = 600,
+  ) {
+    console.log("Creating an access token for initializng SDK...");
+
+    const method = "post";
+    const url =
+      "/resources/accessTokens?userId=" +
+      encodeURIComponent(externalUserId) +
+      "&ttlInSecs=" +
+      ttlInSecs +
+      "&levelName=" +
+      encodeURIComponent(levelName);
+
+    const headers = {
+      Accept: "application/json",
+      "X-App-Token": SUMSUB_APP_TOKEN,
+    };
+
+    config.method = method;
+    config.url = url;
+    config.headers = headers;
+    config.data = null;
+
+    return config;
+  }
 
   try {
-    const response = await axios.post(`${url}`, {}, { headers });
+    const response = await axios(
+      createAccessToken(userId, levelName, ttlInSecs),
+    );
     return NextResponse.json(response.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -9,7 +9,7 @@ export default function SumsubToken() {
     const response = await fetch("/api/sumsub", {
       method: "POST",
       body: JSON.stringify({
-        // userId: "random-postman-user-5kixf6sqi",
+        userId: "1234",
         // levelName: "basic-kyc-level",
       }),
       headers: {
